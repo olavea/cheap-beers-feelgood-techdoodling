@@ -9,8 +9,8 @@ router.get('/', storeController.homePage);
 // Do work here
 // router.get('/', catchErrors(storeController.getStores));
 // router.get('/stores', catchErrors(storeController.getStores));
-// router.get('/add', storeController.addStore);
-
+router.get('/add', storeController.addStore);
+router.post('/add', storeController.createStore);
 // router.post('/add', 
 //   storeController.upload, 
 //   catchErrors(storeController.resize), 

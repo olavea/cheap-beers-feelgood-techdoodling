@@ -21,9 +21,9 @@ exports.homePage = (req, res) => {
 //     }
 // }
 
-// exports.addStore = (req, res) => {
-//     res.render('editStore', { title: 'Add Your feelGood TechDoodle' });
-// };
+exports.addStore = (req, res) => {
+    res.render('editStore', { title: 'Add Your feelGood sketchNote' });
+};
 
 // exports.upload = multer(multerOptions).single('photo');
 
@@ -43,7 +43,7 @@ exports.homePage = (req, res) => {
 //     next();
 // }; 
 
-// exports.createStore = async (req, res) => {
+exports.createStore = async (req, res) => {
 //     const store = await (new Store(req.body)).save();
 //     req.flash('success', `Successfully Created ${store.name}. Care to leave a review?`);
 //     res.redirect(`/store/${store.slug}`);

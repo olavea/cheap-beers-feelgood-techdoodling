@@ -1,9 +1,16 @@
-//- mixin storeForm(store = {})
-//-   form(action=`/add/${store._id || ''}` method="POST" class="card" enctype="multipart/form-data")
-//-     label(for="name") Your Name
-//-     input(type="text" name="name" value=store.name)
-//-     label(for="description") Name of Your FeelGood TechDoodle 
-//-     textarea(name="description")= store.description 
+mixin storeForm(store = {})
+  form(action="/add" method="POST" class="card")
+    label(for="name") Your Name
+    input(type="text" name="name")
+    label(for="description") Name of Your FeelGood sketchNote
+    textarea(name="description")=  //feil? 
+    - const choices = ['Front End', 'Back End', 'node.js', 'ionic', 'StencilJS', 'ViewJS', 'React', 'Angular']
+    ul.tags
+      each choice in choices
+        .tag.tag__choice
+          input(type="checkbox" id=choice value=choice name="tags" checked=(tags.includes(choice)))
+          label(for=choice) #{choice} 
+    input(type="submit" value="Save" class="button")
 //-     //- Image Upload
 //-     label(for="photo") Feelgood techDoodle
 //-       input(type="file" name="photo" id="photo" asccept="image/gif, image/png, image/jpeg")
@@ -17,11 +24,5 @@
 //-     label(for="lng") Address LAT
 //-     input(type="text" id="lat" name="location[coordinates][1]" value=(store.location && store.location.coordinates[1]) required)
 //-     pre= h.dump(store)
-//-     - const choices = ['Front End', 'Back End', 'node.js', 'ionic', 'StencilJS', 'ViewJS', 'React', 'Angular']
+
 //-     - const tags =store.tags || []
-//-     ul.tags
-//-       each choice in choices
-//-         .tag.tag__choice
-//-           input(type="checkbox" id=choice value=choice name="tags" checked=(tags.includes(choice)))
-//-           label(for=choice) #{choice} 
-//-     input(type="submit" value="Save" class="button")

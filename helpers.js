@@ -18,11 +18,15 @@ exports.staticMap = ([lng, lat]) => `https://maps.googleapis.com/maps/api/static
 exports.icon = (name) => fs.readFileSync(`./public/images/icons/${name}.svg`);
 
 // Some details about the site
-exports.siteName = `Cheap beers & feelGood techDoodling!`;
+exports.siteName = `Cheap beers & feelGood Sketchnotes!`;
 
 exports.menu = [
-  { slug: '/stores', title: 'Pubs', icon: 'store', },
+  { slug: '/add', title: 'Add ->', icon: 'add', },
+  { slug: '/top', title: 'Doodles', icon: 'top', },
+
+
+  
   { slug: '/tags', title: 'Tags', icon: 'tag', },
-  { slug: '/add', title: 'Add', icon: 'add', },
+    { slug: '/stores', title: 'Pubs', icon: 'store', },
   { slug: '/map', title: 'Map', icon: 'map', },
 ];

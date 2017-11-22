@@ -1,12 +1,20 @@
-
 const mongoose = require('mongoose');
 const Store = mongoose.model('Store');
 
 exports.homePage = (req, res) => {
-    res.render('index');
+  res.render('index');
 }; 
 
+exports.addStore = (req, res) => {
+    res.render('editStore', { title: 'Add Your feelGood sketchNote' });
+};
 
+exports.createStore = async (req, res) => {
+    const store = await (new Store(req.body)).save();
+    await store.save();
+    req.flash('success', `Successfully Created ${store.name}. Care to leave a review?`);
+    res.redirect(`/stores/${store.slug}`);
+};
 // const multer = require('multer');
 // const jimp = require('jimp');
 // const uuid = require('uuid');
@@ -23,9 +31,6 @@ exports.homePage = (req, res) => {
 //     }
 // }
 
-exports.addStore = (req, res) => {
-    res.render('editStore', { title: 'Add Your feelGood sketchNote' });
-};
 
 // exports.upload = multer(multerOptions).single('photo');
 
@@ -45,13 +50,8 @@ exports.addStore = (req, res) => {
 //     next();
 // }; 
 
-exports.createStore = async (req, res) => {
-    const store = new Store(req.body);
-    await store.save();
-    res.redirect('/');
-};
 //     const store = await (new Store(req.body)).save();
-//     req.flash('success', `Successfully Created ${store.name}. Care to leave a review?`);
+    
 //     res.redirect(`/store/${store.slug}`);
 // };
 

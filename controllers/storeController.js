@@ -11,7 +11,6 @@ exports.addStore = (req, res) => {
 
 exports.createStore = async (req, res) => {
     const store = await (new Store(req.body)).save();
-    await store.save();
     req.flash('success', `Successfully Created ${store.name}. Care to leave a review?`);
     res.redirect(`/stores/${store.slug}`);
 };
@@ -22,6 +21,32 @@ exports.getStores = async (req, res) => {
     console.log(stores);
     res.render('stores', { title: 'Pubs', stores });
 };
+
+exports.editStore = async (req, res) => {
+    //1, find the store given the ID
+    const store = await Store.findOne({ _id: req.params.id });
+    
+    //2, Confirm they are the owner of the store
+    // TODO
+    //3. Render out the edit form so the user can update their store
+    
+    res.render('editStore', { title: `Edit ${store.name}`, store });
+};
+
+
+
+exports.updateStore = async (req, res) => {
+//     req.body.location.type = 'Point';
+       //find and update the store: Store.findOneAndUpdate({ query, data, options }) 
+       const store = await Store.findOneAndUpdate({ _id: req.params.id }, req.body, {
+         new: true, //return the new store instead of the old one
+        runValidators: true
+    }).exec();
+    // redirect them the store and tell them it worked
+    req.flash('success', `Successfully updated <strong>${store.name}</strong>. <a href="/store/${store.slug}">View Store -></a>`);
+    res.redirect(`/stores/${store._id}/edit`);
+};
+
 // exports.getStores = async (req, res) => {
 //   
 // 
@@ -71,22 +96,7 @@ exports.getStores = async (req, res) => {
 // };
 
 
-// exports.editStore = async (req, res) => {
-//     //1,2,3
-//     const store = await Store.findOne({ _id: req.params.id })
-//     res.render('editStore', { title: `Edit ${store.name}`, store });
-// };
 
-// exports.updateStore = async (req, res) => {
-//     req.body.location.type = 'Point';
-    
-//     const store = await Store.findOneAndUpdate({ _id: req.params.id }, req.body, {
-//         new: true,
-//         runValidators: true
-//     }).exec();
-//     req.flash('success', `Successfully updated <strong>${store.name}</strong>. <a href="/store/${store.slug}">View Store -></a>`);
-//     res.redirect(`/stores/${store._id}/edit`);
-// };
 
 // exports.getStoreBySlug = async (req, res, next) => {
 //     const store = await Store.findOne({ slug: req.params.slug });

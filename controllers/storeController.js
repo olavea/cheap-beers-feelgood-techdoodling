@@ -15,6 +15,21 @@ exports.createStore = async (req, res) => {
     req.flash('success', `Successfully Created ${store.name}. Care to leave a review?`);
     res.redirect(`/stores/${store.slug}`);
 };
+
+exports.getStores = async (req, res) => {
+    // 1. Query the database for a list of all stores
+    const stores = await Store.find();
+    console.log(stores);
+    res.render('stores', { title: 'Pubs', stores });
+};
+// exports.getStores = async (req, res) => {
+//   
+// 
+// 
+// };
+
+
+
 // const multer = require('multer');
 // const jimp = require('jimp');
 // const uuid = require('uuid');
@@ -55,11 +70,6 @@ exports.createStore = async (req, res) => {
 //     res.redirect(`/store/${store.slug}`);
 // };
 
-// exports.getStores = async (req, res) => {
-//   // 1. Query the database for a list of all stores
-//   const stores = await Store.find();
-//   res.render('stores', { title: 'Pubs', stores });
-// };
 
 // exports.editStore = async (req, res) => {
 //     //1,2,3

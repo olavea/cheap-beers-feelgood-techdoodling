@@ -41,10 +41,16 @@ storeSchema.pre('save', async function(next) {
     next(); //skipt it
     return; //stop this function from running
   }
-  this.slug = slug(this.name);  
-  next();
+  this.slug = slug(this.name); 
   //find other stores that have a slug of we, wes-1, wes-2
-  //TODO den over
+  //TODO den over  
+  const slugRegEx = new RegExp(`^(${this.slug})((-[0-9]*$)?)$`, 'i');
+  const storesWithSlug = await this.constructor.find({ slug: slugRegEx });
+  if(storesWithSlug.length) {
+    this.slug = `${this.slug}-${storesWithSlug.length+1}`;
+  }
+  next();
+
 });
 
 // storeSchema.statics.getTagsList = function() {
@@ -54,5 +60,6 @@ storeSchema.pre('save', async function(next) {
 //     { $sort: { count: -1 } }
 //   ]);
 // };
+
 
 module.exports = mongoose.model('Store', storeSchema);

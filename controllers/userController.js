@@ -42,7 +42,23 @@ exports.register = async (req, res, next) => {
 
 exports.account = (req, res) => {
   res.render('account', { title: 'Edit Your Account' });
-}
+};
+
+exports.updateAccount = async (req, res) => {
+  const updates ={
+      name: req.body.name,
+      email: req.body.name
+  };
+//(query, update, options)
+  const user = await User.findOneAndUpdate(
+      { _id: req.user._id },
+      { $set: updates },
+      { new: true, runValidators: true, context: 'query'}
+  );
+  //res.json(user); = Invalid Email Address
+  req.flash('success', 'Updated the profile!');
+  res.redirect('/account');
+};
 
 // dog123
 // 9hsajfvlakbhvaødosfijvælakdfnb (in database)

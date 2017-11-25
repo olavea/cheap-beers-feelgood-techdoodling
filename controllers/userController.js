@@ -40,6 +40,10 @@ exports.register = async (req, res, next) => {
   next(); // pass to authController.login
 };
 
+exports.account = (req, res) => {
+  res.render('account', { title: 'Edit Your Account' });
+}
+
 // dog123
 // 9hsajfvlakbhvaødosfijvælakdfnb (in database)
 

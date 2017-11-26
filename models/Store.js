@@ -6,7 +6,7 @@ const storeSchema = new mongoose.Schema({
   name: {
       type: String,
       trim: true,
-      required: 'Please enter a store name!'
+      required: 'Please enter a sketchNote location name!'
   },
   slug: String,
   description: {
@@ -32,7 +32,12 @@ const storeSchema = new mongoose.Schema({
       required: 'You must supply an address!'  
     }
   },
-  photo: String 
+  photo: String, 
+  author: {
+    type: mongoose.Schema.ObjectId, //Double Check Your Case on ObjectId! (betyr at sjekk stor O og Stor I?)
+    ref: 'User',
+    required: 'You must supply a sketchNoter'
+  }
 });
 
 //Pre save hoook 

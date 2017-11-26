@@ -13,7 +13,8 @@ exports.addStore = (req, res) => {
     res.render('editStore', { title: 'Add Your feelGood sketchNote' });
 };
 
-exports.createStore = async (req, res) => {
+exports.createStore = async (req, res) => { //er på kodelinje 45 hos wesbos i video 29
+    req.body.author = req.user._id;
     const store = await (new Store(req.body)).save();
     req.flash('success', `Successfully Created ${store.name}. Care to leave a review?`);
     res.redirect(`/stores/${store.slug}`);
@@ -25,13 +26,17 @@ exports.getStores = async (req, res) => {
     console.log(stores);
     res.render('stores', { title: 'Pubs', stores });
 };
-
+const confirmOwner = (store, user) => { //video 29
+    if(!store.author.equals(user._id)) { //|| user.level < 10 ) { //video 29
+        throw Error('You must own this sketchNote location to edit it!') //video 29
+    }
+};
 exports.editStore = async (req, res) => {
     //1, find the store given the ID
     const store = await Store.findOne({ _id: req.params.id });
     
     //2, Confirm they are the owner of the store
-    // TODO
+    confirmOwner(store, req.user); //video 29
     //3. Render out the edit form so the user can update their store
     
     res.render('editStore', { title: `Edit ${store.name}`, store });
@@ -81,16 +86,9 @@ exports.resize = async (req, res, next) => {
     next();
 }; 
 
-//     const store = await (new Store(req.body)).save();
-    
-//     res.redirect(`/store/${store.slug}`);
-// };
-
-
-
-
 exports.getStoreBySlug = async (req, res, next) => {  
     const store = await Store.findOne({ slug: req.params.slug });
+      populate('author'); //video 29
     if (!store) return next();
     res.render('store', { store, title: store.name });            
 };

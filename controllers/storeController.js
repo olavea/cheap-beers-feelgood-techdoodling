@@ -100,7 +100,23 @@ exports.getStoresByTag = async (req, res) => {
     const storesPromise = Store.find({ tags: tagQuery });
     const [tags, stores] = await Promise.all([tagsPromise, storesPromise]);
     res.render('tag', { tags, title: 'Tags', tag, stores });
-
-    // const tags = await Store.getTagsList();
     
+};
+
+exports.searchStores = async (req, res) =>{
+    const stores = await Store.find({
+    // first find stores that match
+    
+        $text: {
+            $search: req.query.q
+        }
+    },      {
+        score: { $meta: 'textScore' }
+    })
+    // then sort them
+    .sort({
+      score: { $meta: 'textScore'}
+    })
+    //
+    res.json(stores);
 };

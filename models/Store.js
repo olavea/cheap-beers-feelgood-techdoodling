@@ -40,6 +40,12 @@ const storeSchema = new mongoose.Schema({
   }
 });
 
+// Define your idexes
+storeSchema.index({
+  name: 'text',
+  description: 'text'
+});
+
 //Pre save hoook 
 storeSchema.pre('save', async function(next) {
   if (!this.isModified('name')) {

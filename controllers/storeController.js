@@ -23,7 +23,7 @@ exports.createStore = async (req, res) => { //er på kodelinje 45 hos wesbos i v
 exports.getStores = async (req, res) => {
     // 1. Query the database for a list of all stores
     const stores = await Store.find();
-    console.log(stores);
+    //console.log(stores);
     res.render('stores', { title: 'Pubs', stores });
 };
 const confirmOwner = (store, user) => { //video 29

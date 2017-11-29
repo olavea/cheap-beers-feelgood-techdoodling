@@ -26,11 +26,13 @@ exports.getStores = async (req, res) => {
     //console.log(stores);
     res.render('stores', { title: 'Pubs', stores });
 };
+
 const confirmOwner = (store, user) => { //video 29
     if(!store.author.equals(user._id)) { //|| user.level < 10 ) { //video 29
-        throw Error('You must own this sketchNote location to edit it!') //video 29
+        throw Error('You must own this sketchNote location to edit it!'); //video 29
     }
 };
+
 exports.editStore = async (req, res) => {
     //1, find the store given the ID
     const store = await Store.findOne({ _id: req.params.id });
@@ -67,7 +69,6 @@ const multerOptions = {
     }
 };
 
-
 exports.upload = multer(multerOptions).single('photo');
 
 exports.resize = async (req, res, next) => {
@@ -88,7 +89,7 @@ exports.resize = async (req, res, next) => {
 
 exports.getStoreBySlug = async (req, res, next) => {  
     const store = await Store.findOne({ slug: req.params.slug });
-      populate('author'); //video 29
+      populate('author'); //video29
     if (!store) return next();
     res.render('store', { store, title: store.name });            
 };

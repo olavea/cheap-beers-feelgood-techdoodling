@@ -19,7 +19,7 @@ mixin storeForm(store = {})
     input(type="text" id="lng" name="location[coordinates][0]" value=(store.location && store.location.coordinates[0]) required)
     label(for="lng") Address LAT
     input(type="text" id="lat" name="location[coordinates][1]" value=(store.location && store.location.coordinates[1]) required)
-    pre= h.dump(store)
+    
 
     - const choices = ['Front End', 'Back End', 'node.js', 'ionic', 'StencilJS', 'ViewJS', 'React', 'Angular']
     - const tags =store.tags || []

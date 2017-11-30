@@ -1,6 +1,6 @@
 mixin storeForm(store = {})
-  form(action=`/add/${store._id || ''}` method="POST" class="card" enctyp="multipart/form-data")
-    pre= h.dump(store)
+  form(action=`/add/${store._id || ''}` method="POST" class="card" enctype="multipart/form-data")
+    
     label(for="name") Your Name
     input(type="text" name="name" value=store.name)
     label(for="description") Name of Your FeelGood sketchNote

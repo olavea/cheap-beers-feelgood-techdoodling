@@ -33,11 +33,12 @@ const storeSchema = new mongoose.Schema({
     }
   },
   photo: String, 
-  author: {
-    type: mongoose.Schema.ObjectId, //Double Check Your Case on ObjectId! (betyr at sjekk stor O og Stor I?)
-    ref: 'User',
-    required: 'You must supply a sketchNoter'
-  }
+  // video29 1:33 derfor kommenterte jeg den ut
+  // author: {
+  //   type: mongoose.Schema.ObjectId, //Double Check Your Case on ObjectId! (betyr at sjekk stor O og Stor I?)
+  //   ref: 'User',
+  //   required: 'You must supply a sketchNoter'
+  // }
 });
 
 // Define your idexes

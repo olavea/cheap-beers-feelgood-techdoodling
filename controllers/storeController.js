@@ -14,7 +14,8 @@ exports.addStore = (req, res) => {
 };
 
 exports.createStore = async (req, res) => { //er på kodelinje 45 hos wesbos i video 29
-    req.body.author = req.user._id;
+    // video29 2:56 derfor kommenterte jeg den ut
+    // req.body.author = req.user._id;
     const store = await (new Store(req.body)).save();
     req.flash('success', `Successfully Created ${store.name}. Care to leave a review?`);
     res.redirect(`/stores/${store.slug}`);
@@ -26,19 +27,20 @@ exports.getStores = async (req, res) => {
     //console.log(stores);
     res.render('stores', { title: 'Pubs', stores });
 };
-
-const confirmOwner = (store, user) => { //video 29
-    if(!store.author.equals(user._id)) { //|| user.level < 10 ) { //video 29
-        throw Error('You must own this sketchNote location to edit it!'); //video 29
-    }
-};
+// video29 6:33 derfor kommenterte jeg den ut
+// const confirmOwner = (store, user) => { //video 29
+//     if(!store.author.equals(user._id)) { //|| user.level < 10 ) { //video 29
+//         throw Error('You must own this sketchNote location to edit it!'); //video 29
+//     }
+// };
 
 exports.editStore = async (req, res) => {
     //1, find the store given the ID
     const store = await Store.findOne({ _id: req.params.id });
     
     //2, Confirm they are the owner of the store
-    confirmOwner(store, req.user); //video 29
+    // video29 7:46 derfor kommenterte jeg den ut
+    // confirmOwner(store, req.user); //video 29
     //3. Render out the edit form so the user can update their store
     
     res.render('editStore', { title: `Edit ${store.name}`, store });
@@ -89,7 +91,8 @@ exports.resize = async (req, res, next) => {
 
 exports.getStoreBySlug = async (req, res, next) => {  
     const store = await Store.findOne({ slug: req.params.slug });
-      populate('author'); //video29
+    //   populate('author'); //video29
+    // video29 4:44 derfor kommenterte jeg den ut
     if (!store) return next();
     res.render('store', { store, title: store.name });            
 };
